@@ -1,0 +1,809 @@
+/* 🔥 Final Enhanced CSS — Based on Your Version + UI Improvements */
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #3e3e3e, #8e8e8e);
+    background-image: radial-gradient(
+        ellipse at top,
+        #cfcfcf 0%,
+        #bfbfbf 11.1%,
+        #afafaf 22.2%,
+        #9f9f9f 33.3%,
+        #8f8f8f 44.4%,
+        #7f7f7f 55.6%,
+        #6f6f6f 66.7%,
+        #5f5f5f 77.8%,
+        #4f4f4f 88.9%,
+        #3f3f3f 100%
+    );
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+#c {
+    display: block;
+    touch-action: none;
+    transform: translateZ(0);
+}
+
+/* HUD */
+.hud__score {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 16px 24px;
+  border-radius: 16px;
+
+  /* ✨ Glassmorphism core */
+  background: rgba(0, 0, 0, 0.2); /* translucent dark glass */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* ✨ Border & glow */
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  box-shadow: 0 0 16px rgba(0, 255, 255, 0.2);
+
+  /* Text styling */
+  color: #00ffff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-shadow: 0 0 4px rgba(0, 255, 255, 0.4);
+
+  z-index: 10;
+}
+
+/* Optional: style the labels inside */
+.score-lbl,
+.cube-count-lbl {
+  display: block;
+  margin-bottom: 6px;
+}
+
+@keyframes scoreGlow {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 4px #00ffff;
+  }
+  50% {
+    transform: scale(1.2);
+    text-shadow: 0 0 12px #00ffff;
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 4px #00ffff;
+  }
+}
+
+.score-lbl.glow,
+.cube-count-lbl.glow {
+  animation: scoreGlow 0.4s ease;
+}
+
+/*FLOATING POINTS */
+.floating-points {
+  position: relative;
+  overflow: visible;
+}
+
+.floating-point {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #00ffff;
+  font-size: 1rem;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.6);
+  animation: floatUpFade 0.8s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUpFade {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/*PAUSE*/
+.pause-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 100;
+}
+
+.pause-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.9);
+}
+
+.pause-btn::before {
+    content: "❚❚";
+    color: #00ffff;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.slowmo {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.slowmo::before {
+    content: "SLOW-MO";
+    display: block;
+    font-size: calc(8px + 1vw + 0.5vh);
+    margin-left: 0.5em;
+    margin-bottom: 8px;
+}
+
+.slowmo::after {
+    content: "";
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 1.5vh;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: -1;
+}
+
+.slowmo__bar {
+    height: 1.5vh;
+    background-color: rgba(255, 255, 255, 0.75);
+    transform-origin: 0 0;
+}
+
+/* Menus */
+.menus::before {
+    content: "";
+    pointer-events: none;
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+.menus.has-active::before {
+    opacity: 0.08;
+    transition-duration: 0.4s ease-out;
+}
+
+.menus.interactive-mode::before {
+    opacity: 0.02;
+}
+
+.menu {
+    pointer-events: none;
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    user-select: none;
+    color: rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(30px);
+    transition: all 0.4s ease-in-out;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    padding: 1em;
+}
+
+.menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.menus.interactive-mode .menu.active {
+    opacity: 0.6;
+}
+
+.menus:not(.interactive-mode) .menu.active > * {
+    pointer-events: auto;
+}
+
+/* Titles */
+h1 {
+    font-size: 4rem;
+    margin: 0 0.65em 1em;
+    font-weight: bold;
+    font-family: 'Press Start 2P', monospace;
+    color: #00ffff;
+    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+    transition: transform 0.4s ease-in-out;
+}
+
+h1:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: -1em 0.65em 1em;
+    font-weight: bold;
+}
+
+/* Final Score */
+.final-score-lbl {
+    font-size: 5rem;
+    margin: -0.2em 0 0;
+}
+
+.high-score-lbl {
+    font-size: 1.2rem;
+    margin: 0 0 2.5em;
+}
+
+/* Buttons */
+button {
+    display: block;
+    position: relative;
+    width: 200px;
+    padding: 12px 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #fff;
+    opacity: 0.75;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s;
+}
+
+button:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(0, 0);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+button:active {
+    opacity: 1;
+}
+
+button:active::before {
+    transform: scale(1, 1);
+    opacity: 1;
+}
+
+/* Primary action button */
+.play-normal-btn {
+    background-color: #00ffff;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+}
+
+.play-normal-btn:hover {
+    background-color: #00dddd;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 1);
+}
+
+/* Main menu layout */
+.menu--main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 40px;
+    min-height: 100vh;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.menu--main h1 {
+    margin-bottom: 30px;
+}
+
+.menu--main button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    min-width: 200px;
+}
+
+/*CREDITS*/
+.credits {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 1rem;
+    z-index: 10;
+    color: #00ffff;
+    font-weight: bold;
+    text-shadow: 0 0 5px #0ff;
+}
+
+.credits a {
+    color: #00ffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.credits a:hover {
+    text-shadow: 0 0 10px #0ff;
+    transform: scale(1.05);
+}
+
+
+a {
+    color: white;
+}
+
+/* Animated background */
+#bg {
+    position: fixed;
+    background: radial-gradient(ellipse at center, #0f0f0f 0%, #1a1a1a 100%);
+    top: 0; left: 0; bottom: 0; right: 0;
+    z-index: -2;
+    animation: backgroundMove 15s linear infinite;
+}
+
+@keyframes backgroundMove {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .menu--main h1 {
+        font-size: 2rem;
+    }
+
+    .menu--main button {
+        font-size: 1.2rem;
+        padding: 14px;
+        width: 90%;
+    }
+}
+
+/* 🔥 Neon Flicker Keyframes */
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow:
+            0 0 4px #0ff,
+            0 0 10px #0ff,
+            0 0 20px #0ff,
+            0 0 40px #0ff;
+    }
+    20%, 24%, 55% {
+        opacity: 0.5;
+        text-shadow: none;
+    }
+}
+
+/* ✨ Button Glow Pulse */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+}
+
+/* ⚡ Slide-in Effect on Hover */
+button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: skewX(-20deg);
+    transition: left 0.5s;
+    pointer-events: none;
+}
+
+button:hover::after {
+    left: 100%;
+}
+
+/* 🌟 Apply Animations to Buttons */
+button {
+    animation: pulse 2.5s infinite;
+    overflow: hidden;
+}
+
+/* 💡 Flicker effect only on PLAY button */
+.play-normal-btn {
+    animation: flicker 3s infinite, pulse 1.5s infinite;
+}
+
+#toggle-sound-btn {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #00ffff;
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin-top: 10px;
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+    transition: all 0.3s ease;
+}
+
+#toggle-sound-btn:hover {
+    background-color: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
+    transform: scale(1.05);
+}
+
+/* 👇 Fade In Main Menu Entrance */
+.menu--main {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🌀 Optional spinning logo */
+.logo {
+    width: 80px;
+    margin-bottom: 10px;
+    animation: logoSpin 12s linear infinite;
+}
+
+@keyframes logoSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 💫 Glow Ring on Hover */
+@keyframes pulseOutline {
+    0% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.5; }
+}
+
+/* Default (Neon) Theme – already your current styles */
+body.theme-neon {
+    background-image: radial-gradient(
+        ellipse at top,
+        #cfcfcf 0%,
+        #bfbfbf 11.1%,
+        #afafaf 22.2%,
+        #9f9f9f 33.3%,
+        #8f8f8f 44.4%,
+        #7f7f7f 55.6%,
+        #6f6f6f 66.7%,
+        #5f5f5f 77.8%,
+        #4f4f4f 88.9%,
+        #3f3f3f 100%
+    );
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* 🌞 Light Theme (clean, subtle sci-fi) */
+body.theme-light {
+    background: linear-gradient(135deg, #e0e0e0, #ffffff);
+    color: #111;
+}
+
+body.theme-light .menu,
+body.theme-light .menu--main {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    color: #111;
+}
+
+body.theme-light h1 {
+    color: #0077ff;
+    text-shadow: none;
+}
+
+body.theme-light .play-normal-btn {
+    background-color: #0077ff;
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 119, 255, 0.4);
+}
+
+body.theme-light .play-normal-btn:hover {
+    background-color: #005dc1;
+    box-shadow: 0 0 20px rgba(0, 119, 255, 0.6);
+}
+
+body.theme-light button {
+    color: #111;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+body.theme-light #toggle-theme-btn {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #0077ff;
+}
+
+
+
+button:hover::after {
+    left: 100%;
+}
+
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 2px 2px #00ffff, -2px -2px #ff00ff;
+  }
+  20% {
+    text-shadow: -2px 2px #00ffff, 2px -2px #ff00ff;
+  }
+  40% {
+    text-shadow: 2px -2px #00ffff, -2px 2px #ff00ff;
+  }
+  60% {
+    text-shadow: -2px -2px #00ffff, 2px 2px #ff00ff;
+  }
+  80% {
+    text-shadow: 1px 0 #00ffff, -1px 0 #ff00ff;
+  }
+  100% {
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
+  }
+}
+
+.glitch-hover:hover {
+  animation: glitch 0.5s steps(2, end) infinite;
+}
+
+/* 🔮 Modal Overlay */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+}
+
+/* 💬 Modal Box */
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    padding: 2em 2.5em;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+    text-align: center;
+    color: #00ffff;
+    animation: fadeIn 0.4s ease;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+/* ✨ Modal Title */
+.modal-content h2 {
+    font-size: 1.6rem;
+    margin: 0 auto 1.5em;
+    text-align: center;
+    color: #00ffff;
+    text-shadow: 0 0 5px #0ff;
+}
+
+/* ❌ Close Button */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 1.6rem;
+    color: #00ffff;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-shadow: 0 0 5px #0ff;
+}
+
+.close-btn:hover {
+    transform: scale(1.2);
+    color: #fff;
+}
+
+/* 🔗 Social Links */
+.modal-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-content li {
+    margin: 1em 0;
+}
+
+.modal-content a {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #00ffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    transition: 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.modal-content a:hover {
+    background: rgba(0, 255, 255, 0.15);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+    transform: scale(1.05);
+}
+
+/* 👀 Fade animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.menu--pause {
+    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 40px;
+    gap: 20px;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+    border-radius: 20px;
+    animation: fadeInPause 0.6s ease-out;
+}
+
+.menu--pause h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #00ffff;
+    text-shadow: 0 0 10px #0ff;
+}
+
+.menu--pause button {
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    width: 220px;
+    margin: 10px 0;
+    animation: pulse 2.5s infinite;
+}
+
+@keyframes fadeInPause {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*Playagainbtn style*/
+.play-again-btn,
+.menu-btn--score {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s;
+}
+
+.play-again-btn:hover,
+.menu-btn--score:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  opacity: 1;
+}
+
+.menu--score button {
+  margin: 10px 0;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  width: 220px;
+  animation: pulse 2.5s infinite;
+}
+
+/* Responsive Adjustments for Small Screens */
+@media (max-width: 400px) {
+    .pause-btn {
+        top: 6px;
+        right: 6px;
+        width: 44px;
+        height: 44px;
+    }
+    .pause-btn::before {
+        font-size: 1.3rem;
+    }
+    .menu button {
+        font-size: 1rem;
+        padding: 10px;
+        width: 95%;
+    }
+}
+
+/* Floating Tooltip */
+.tooltip {
+  position: fixed;
+  z-index: 9999;
+  background: rgba(0, 255, 255, 0.9);
+  color: #000;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: 'Orbitron', sans-serif;
+  white-space: nowrap;
+  box-shadow: 0 6px 14px rgba(0, 255, 255, 0.25);
+  opacity: 0;
+  transform: translateY(0px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.tooltip.show {
+  opacity: 1;
+  transform: translateY(-8px);
+}
+
+.tooltip.hidden {
+  opacity: 0;
+  pointer-events: none;
+}

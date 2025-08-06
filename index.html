@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chopmetry</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background particles --> 
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Game canvas -->
+  <canvas id="c"></canvas>
+
+  <!-- Gameplay HUD -->
+  <div class="hud">
+    <div class="hud__score">
+      <div class="score-lbl"></div>
+      <div class="cube-count-lbl"></div>
+    </div>
+    <div class="pause-btn"></div>
+    <div class="slowmo">
+      <div class="slowmo__bar"></div>
+    </div>
+  </div>
+
+  <!-- Menu System -->
+  <div class="menus">
+    <div class="menu menu--main">
+      <h1 class="glitch-hover">C H O P M E T R Y</h1>
+      <p class="glitch-hover">Swipe. Split. Score.</p>
+      <button class="play-normal-btn" data-tooltip="">PLAY GAME</button>
+      <button class="play-casual-btn" data-tooltip="">INFINITE MODE</button>
+      <button id="toggle-sound-btn" data-tooltip="">SOUND: ON</button>
+    </div>
+
+    <div class="menu menu--pause">
+      <h1 class="glitch-hover">Paused</h1>
+      <button class="resume-btn" data-tooltip="">RESUME GAME</button>
+      <button class="menu-btn--pause" data-tooltip="">MAIN MENU</button>
+    </div>
+
+    <div class="menu menu--score">
+      <h1 class="glitch-hover">Game Over</h1>
+      <h2>Your Score:</h2>
+      <div class="final-score-lbl"></div>
+      <div class="high-score-lbl"></div>
+      <button class="play-again-btn" data-tooltip="">PLAY AGAIN</button>
+      <button class="menu-btn--score" data-tooltip="">MAIN MENU</button>
+    </div>
+  </div>
+
+  <!-- 👣 Credit Link -->
+  <div class="credits">
+    <a href="#" id="credit-link">HonTheCoder</a>
+  </div>
+
+  <!-- Credit Modal -->
+  <div id="credit-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Follow Me!</h2>
+      <ul>
+        <li><a href="https://www.facebook.com/honezekielnoblebognalbal" target="_blank" rel="noopener noreferrer">📘 Facebook</a></li>
+        <li><a href="https://www.instagram.com/hon.ezekiel_/" target="_blank" rel="noopener noreferrer">📸 Instagram</a></li>
+        <li><a href="https://github.com/HonTheCoder" target="_blank" rel="noopener noreferrer">🐙 GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+  <script src="controls.js"></script>
+  <script src="buttons.js"></script>
+  <script src="mobile.js"></script>
+  <script src="sound.js"></script>
+  <div id="custom-tooltip" class="tooltip hidden"></div>
+  <script src="tooltip.js"></script>
+</body>
+</html>
+
+<!--✅ UI/UX Enhancement Ideas
+
+🗂️ Settings Panel – Slide-in panel for toggles like music, theme, difficulty.
+
+🎨 Theme Selector with Previews – Let users pick between themes (e.g. Neon, Retro, Cyber).
+
+🥇 Leaderboard Modal – Show top scores with styled container.
+
+🎞️ Intro Animation – Short animated logo or title reveal on load.
+
+💾 Save Settings to LocalStorage – Remember user’s theme, sound preferences, etc.
+
+📦 Add Game Mode Buttons – Like “Classic”, “Time Attack”, etc. (if future plans).
+
+Add speed per cube break not score
+-->
