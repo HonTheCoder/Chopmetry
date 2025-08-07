@@ -3,6 +3,8 @@
 **Swipe. Split. Score.**  
 A fast-paced slicing arcade game built with HTML5 Canvas + JavaScript + Firebase.
 
+Try it: https://chopmetry.netlify.app
+
 ---
 
 ## 🎮 Gameplay
