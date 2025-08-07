@@ -52,8 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // ⬇️ Submit Score Button Handler
-    if (submitBtn) {
+    // ✅ Only add submit listener once
+    if (submitBtn && !submitBtn.dataset.listenerAdded) {
+      submitBtn.dataset.listenerAdded = 'true'; // prevent re-adding
       submitBtn.addEventListener('click', async () => {
         const playerName = nameInput.value.trim() || 'Anonymous';
         const score = state?.game?.score ?? 0;
@@ -68,6 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
             name: playerName,
             score: score
           });
+
+          // ✅ Prevent resubmitting
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitted!';
+          
           alert("Score submitted!");
           showLeaderboardOnGameOver('ranked');
         } catch (err) {
