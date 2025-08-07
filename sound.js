@@ -3,7 +3,8 @@ const sounds = {
     click: new Audio('sounds/click.wav'),
     gameover: new Audio('sounds/gameover.wav'),
     menu: new Audio('sounds/menu.mp3'),
-    bgm: new Audio('sounds/bgm.mp3')
+    bgm: new Audio('sounds/bgm.mp3'),
+    break: new Audio('sounds/break.mp3')
 };
 
 // Settings for music tracks
@@ -12,6 +13,8 @@ sounds.menu.volume = 0.5;
 
 sounds.bgm.loop = true;
 sounds.bgm.volume = 0.5;
+
+sounds.break.volume = 1.0;
 
 // Utility functions
 function playSound(name) {

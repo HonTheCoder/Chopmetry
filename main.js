@@ -13,7 +13,52 @@ const BLUE = { r: 0x67, g: 0xd7, b: 0xf0 };
 const GREEN = { r: 0xa6, g: 0xe0, b: 0x2c };
 const PINK = { r: 0xfa, g: 0x24, b: 0x73 };
 const ORANGE = { r: 0xfe, g: 0x95, b: 0x22 };
-const allColors = [BLUE, GREEN, PINK, ORANGE];
+const RED = { r: 0xff, g: 0x4c, b: 0x4c };              // Soft red
+const YELLOW = { r: 0xff, g: 0xf5, b: 0x72 };           // Warm yellow
+const PURPLE = { r: 0x9b, g: 0x59, b: 0xb6 };           // Medium purple
+const CYAN = { r: 0x76, g: 0xe4, b: 0xf7 };             // Soft cyan
+const MAGENTA = { r: 0xff, g: 0x47, b: 0xb3 };          // Bright pink
+const LIME = { r: 0xbf, g: 0xef, b: 0x45 };             // Light lime
+const TEAL = { r: 0x20, g: 0xc9, b: 0x95 };             // Minty teal
+const INDIGO = { r: 0x4b, g: 0x00, b: 0x82 };           // Deep indigo
+const SALMON = { r: 0xff, g: 0x91, b: 0x80 };           // Soft salmon
+const MINT = { r: 0xa0, g: 0xff, b: 0xd1 };             // Mint green
+const PEACH = { r: 0xff, g: 0xcb, b: 0xa4 };            // Light peach
+const LAVENDER = { r: 0xe6, g: 0xe6, b: 0xfa };         // Lavender
+const SKY = { r: 0x87, g: 0xce, b: 0xeb };              // Sky blue
+const NAVY = { r: 0x00, g: 0x2e, b: 0x63 };             // Dark navy
+const CHARCOAL = { r: 0x36, g: 0x3f, b: 0x4e };         // Dark charcoal
+const ROSE = { r: 0xff, g: 0x66, b: 0xcc };             // Rose pink
+const NEON_GREEN = { r: 0x39, g: 0xff, b: 0x14 };       // Bright green
+const NEON_BLUE = { r: 0x1b, g: 0x03, b: 0xa3 };        // Intense blue
+const CANDY_PINK = { r: 0xff, g: 0x6f, b: 0xb5 };       // Bright candy pink
+const AQUA = { r: 0x00, g: 0xff, b: 0xee };             // Vivid aqua
+const TANGERINE = { r: 0xff, g: 0xa3, b: 0x4f };        // Zesty orange
+const LEMON = { r: 0xfd, g: 0xff, b: 0x6a };            // Eye-popping yellow
+const BUBBLEGUM = { r: 0xff, g: 0xc1, b: 0xcc };        // Sweet pink
+const ELECTRIC_PURPLE = { r: 0xbf, g: 0x00, b: 0xff };  // Shocking purple
+const SEAFOAM = { r: 0x7a, g: 0xff, b: 0xd4 };          // Refreshing mint
+const CORNFLOWER = { r: 0x64, g: 0x95, b: 0xed };       // Blue with a soft touch
+const FLAMINGO = { r: 0xfc, g: 0x8e, b: 0xac };         // Tropical pink
+const ICE_BLUE = { r: 0xd0, g: 0xf0, b: 0xff };         // Chilly soft blue
+const PERIWINKLE = { r: 0xcc, g: 0xcc, b: 0xff };       // Gentle pastel purple
+const WATERMELON = { r: 0xfc, g: 0x6c, b: 0x85 };       // Juicy pink-red
+const KIWI = { r: 0x8e, g: 0xe4, b: 0xaf };             // Lush green
+const GOLDFISH = { r: 0xff, g: 0x77, b: 0x00 };         // Bold orange
+const TOY_BLUE = { r: 0x38, g: 0xb0, b: 0xde };         // Bright, playful blue
+const SUNKISSED = { r: 0xff, g: 0xd1, b: 0x8f };        // Warm light orange
+const LAVENDER_BLUSH = { r: 0xff, g: 0xf0, b: 0xf5 };   // Soft pinkish white
+const GRAPE_SODA = { r: 0x91, g: 0x2f, b: 0xcf };       // Deep fun purple
+const BERRY = { r: 0xac, g: 0x27, b: 0x4f };            // Rich berry red
+const FAIRY_DUST = { r: 0xe5, g: 0xd0, b: 0xff };       // Magical soft violet
+const allColors = [
+  BLUE, GREEN, PINK, ORANGE, RED, YELLOW, PURPLE, CYAN, MAGENTA, LIME,
+  TEAL, INDIGO, SALMON, MINT, PEACH, LAVENDER, SKY, NAVY, CHARCOAL, ROSE,
+  NEON_GREEN, NEON_BLUE, CANDY_PINK, AQUA, TANGERINE, LEMON, BUBBLEGUM,
+  ELECTRIC_PURPLE, SEAFOAM, CORNFLOWER, FLAMINGO, ICE_BLUE, PERIWINKLE,
+  WATERMELON, KIWI, GOLDFISH, TOY_BLUE, SUNKISSED, LAVENDER_BLUSH,
+  GRAPE_SODA, BERRY, FAIRY_DUST
+];
 
 // Gameplay
 const getSpawnDelay = () => {
@@ -22,9 +67,8 @@ const getSpawnDelay = () => {
     let spawnDelay = spawnDelayMax - state.game.cubeCount * 3.1;
 
     // Calculate multiplier based on score
-    const speedLevel = Math.floor(state.game.score / 500); // 0, 1, 2...
+    const speedLevel = Math.floor(state.game.cubeCount / 10); // Increase speed every 10 cubes
     const multiplier = Math.pow(0.9, speedLevel); // each level = 10% faster
-
     spawnDelay *= multiplier;
 
     return Math.max(spawnDelay, spawnDelayMin);
@@ -35,6 +79,7 @@ const doubleStrongEnableScore = 2000;
 const slowmoThreshold = 10;
 const strongThreshold = 25;
 const spinnerThreshold = 25;
+
 
 // Interaction state
 let pointerIsDown = false;
@@ -136,6 +181,7 @@ const state = {
     }
 };
 
+window.state = state;
 
 ////////////////////////////
 // Global State Selectors //
@@ -392,7 +438,7 @@ function cloneVertices(vertices) {
 }
 
 // Copy vertex data from one array into another.
-// Arrays must be the same length.
+// Arrays must be the same length.  
 function copyVerticesTo(arr1, arr2) {
     const len = arr1.length;
     for (let i = 0; i < len; i++) {
@@ -1059,7 +1105,12 @@ function getTargetOfStyle(color, wireframe) {
 
         // Target Parameters
         // --------------------------------
-        let color = pickOne([BLUE, GREEN, ORANGE]);
+        let color = pickOne([BLUE, GREEN, PINK, ORANGE, RED, YELLOW, PURPLE, CYAN, MAGENTA, LIME,
+                            TEAL, INDIGO, SALMON, MINT, PEACH, LAVENDER, SKY, NAVY, CHARCOAL, ROSE,
+                            NEON_GREEN, NEON_BLUE, CANDY_PINK, AQUA, TANGERINE, LEMON, BUBBLEGUM,
+                            ELECTRIC_PURPLE, SEAFOAM, CORNFLOWER, FLAMINGO, ICE_BLUE, PERIWINKLE,
+                            WATERMELON, KIWI, GOLDFISH, TOY_BLUE, SUNKISSED, LAVENDER_BLUSH,
+                            GRAPE_SODA, BERRY, FAIRY_DUST]);
         let wireframe = false;
         let health = 1;
         let maxHealth = 3;
@@ -1630,6 +1681,7 @@ function endGame() {
     }
     playSound('gameover');
     setActiveMenu(MENU_SCORE);
+    showLeaderboardOnGameOver(state.game.mode);
 }
 
 
@@ -1860,6 +1912,7 @@ function tick(width, height, simTime, simSpeed, lag) {
                     incrementScore(Math.round(baseScore * slowmoPenalty));
 
                     if (target.health <= 0) {
+                        playSound('break');
                         incrementCubeCount(1);
                         createBurst(target, cappedForceMultiplier);
                         sparkBurst(hitX, hitY, 8, sparkSpeed);

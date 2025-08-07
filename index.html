@@ -38,6 +38,7 @@
       <p class="glitch-hover">Swipe. Split. Score.</p>
       <button class="play-normal-btn" data-tooltip="">PLAY GAME</button>
       <button class="play-casual-btn" data-tooltip="">INFINITE MODE</button>
+      <button id="leaderboard-btn" class="leaderboard-trigger-btn">LEADERBOARD</button>
       <button id="toggle-sound-btn" data-tooltip="">SOUND: ON</button>
     </div>
 
@@ -49,6 +50,8 @@
 
     <div class="menu menu--score">
       <h1 class="glitch-hover">Game Over</h1>
+      <input type="text" id="player-name-input" placeholder="Enter your name" maxlength="12" />
+      <button id="submit-score-btn">Submit Score</button>
       <h2>Your Score:</h2>
       <div class="final-score-lbl"></div>
       <div class="high-score-lbl"></div>
@@ -56,6 +59,21 @@
       <button class="menu-btn--score" data-tooltip="">MAIN MENU</button>
     </div>
   </div>
+
+      <!-- Leaderboard Modal -->
+    <div id="leaderboard-modal" class="modal-leaderboard">
+      <div class="modal-leaderboard-content">
+        <span class="close-leaderboard-btn">&times;</span>
+        <h3>T O P - P L A Y E R S</h3>
+
+        <div class="leaderboard-mode-buttons">
+          <button id="casual-leaderboard-btn">Ranked</button>
+        </div>
+
+        <ol id="leaderboard-list"></ol>
+      </div>
+    </div>
+
 
   <!-- 👣 Credit Link -->
   <div class="credits">
@@ -76,6 +94,7 @@
   </div>
 
   <!-- Scripts -->
+  <script type="module" src="firebase.js"></script>
   <script src="main.js"></script>
   <script src="controls.js"></script>
   <script src="buttons.js"></script>
@@ -83,6 +102,7 @@
   <script src="sound.js"></script>
   <div id="custom-tooltip" class="tooltip hidden"></div>
   <script src="tooltip.js"></script>
+  <script src="leaderboard.js"></script>
 </body>
 </html>
 
@@ -100,5 +120,4 @@
 
 📦 Add Game Mode Buttons – Like “Classic”, “Time Attack”, etc. (if future plans).
 
-Add speed per cube break not score
 -->

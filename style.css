@@ -783,27 +783,168 @@ button:hover::after {
 /* Floating Tooltip */
 .tooltip {
   position: fixed;
-  z-index: 9999;
-  background: rgba(0, 255, 255, 0.9);
-  color: #000;
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  font-family: 'Orbitron', sans-serif;
-  white-space: nowrap;
-  box-shadow: 0 6px 14px rgba(0, 255, 255, 0.25);
-  opacity: 0;
-  transform: translateY(0px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #00ffff;
+  font-size: 0.85rem;
+  border-radius: 6px;
   pointer-events: none;
+  white-space: normal;
+  max-width: 200px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .tooltip.show {
   opacity: 1;
-  transform: translateY(-8px);
+  transform: translateY(-4px);
 }
 
 .tooltip.hidden {
-  opacity: 0;
-  pointer-events: none;
+  display: none;
+}
+
+/* 🌐 Mobile Optimization Patch */
+@media (max-width: 600px) {
+  body {
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .hud__score {
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+
+  .pause-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pause-btn::before {
+    font-size: 1.2rem;
+  }
+
+  .tooltip {
+    font-size: 0.75rem;
+    max-width: 75vw;
+    z-index: 1000;
+    word-wrap: break-word;
+  }
+
+  .menu--main button {
+    width: 90vw;
+    font-size: 1.1rem;
+    padding: 12px;
+  }
+}
+
+/* Leaderboard Modal (Separate from credit modal) */
+.modal-leaderboard {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-leaderboard-content {
+  background-color: #111;
+  margin: 10% auto;
+  padding: 20px;
+  border: 2px solid #00ffff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  color: #00ffff;
+  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+  font-family: 'Orbitron', sans-serif;
+}
+
+.close-leaderboard-btn {
+  color: #00ffff;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-leaderboard-btn:hover {
+  color: #ff0066;
+}
+
+.leaderboard-mode-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.leaderboard-mode-buttons button {
+  flex: 1;
+  margin: 0 6px;
+  padding: 10px;
+  background-color: #00ffff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  color: #000;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.leaderboard-mode-buttons button:hover {
+  background-color: #00dddd;
+}
+
+#leaderboard-list {
+  padding-left: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  color: #00ffff;
+  list-style: decimal;
+}
+
+#leaderboard-list {
+  list-style-position: inside;
+  padding-left: 0;
+}
+
+#player-name-input {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  color: #00ffff; /* neon cyan */
+  background-color: #111; /* dark background */
+  border: 2px solid #00ffff;
+  border-radius: 8px;
+  padding: 10px 14px;
+  outline: none;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  margin: 12px auto;
+  display: block;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#player-name-input:focus {
+  border-color: #00bfff;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+#submit-score-btn {
+  margin-bottom: 20px; /* Add space below the button */
+}
+
+.menu--score h2 {
+  margin-top: 20px; /* Add space above "Your Score:" */
 }
